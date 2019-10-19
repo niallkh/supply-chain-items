@@ -1,11 +1,13 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 /// Provides basic authorization control
 contract Ownable {
     address private origOwner;
 
     // Define an Event
-    event TransferOwnership(address indexed oldOwner, address indexed newOwner);
+    event TransferOwnership(
+        address indexed oldOwner, address indexed newOwner
+    );
 
     /// Assign the contract to an owner
     constructor () internal {
