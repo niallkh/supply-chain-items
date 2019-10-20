@@ -41,16 +41,16 @@ App = {
         console.log(
             App.sku,
             App.upc,
-            App.ownerID, 
-            App.originFarmerID, 
-            App.originFarmName, 
-            App.originFarmInformation, 
-            App.originFarmLatitude, 
-            App.originFarmLongitude, 
-            App.productNotes, 
-            App.productPrice, 
-            App.distributorID, 
-            App.retailerID, 
+            App.ownerID,
+            App.originFarmerID,
+            App.originFarmName,
+            App.originFarmInformation,
+            App.originFarmLatitude,
+            App.originFarmLongitude,
+            App.productNotes,
+            App.productPrice,
+            App.distributorID,
+            App.retailerID,
             App.consumerID
         );
     },
@@ -99,15 +99,15 @@ App = {
 
     initSupplyChain: function () {
         /// Source the truffle compiled smart contracts
-        var jsonSupplyChain='../../build/contracts/SupplyChain.json';
-        
+        var jsonSupplyChain='../../build/contracts/Ownable.json';
+
         /// JSONfy the smart contracts
         $.getJSON(jsonSupplyChain, function(data) {
             console.log('data',data);
             var SupplyChainArtifact = data;
             App.contracts.SupplyChain = TruffleContract(SupplyChainArtifact);
             App.contracts.SupplyChain.setProvider(App.web3Provider);
-            
+
             App.fetchItemBufferOne();
             App.fetchItemBufferTwo();
             App.fetchEvents();
@@ -125,6 +125,8 @@ App = {
         event.preventDefault();
 
         App.getMetaskAccountID();
+
+        App.readForm()
 
         var processId = parseInt($(event.target).data('id'));
         console.log('processId',processId);
@@ -169,12 +171,12 @@ App = {
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
             return instance.harvestItem(
-                App.upc, 
-                App.metamaskAccountID, 
-                App.originFarmName, 
-                App.originFarmInformation, 
-                App.originFarmLatitude, 
-                App.originFarmLongitude, 
+                App.upc,
+                App.metamaskAccountID,
+                App.originFarmName,
+                App.originFarmInformation,
+                App.originFarmLatitude,
+                App.originFarmLongitude,
                 App.productNotes
             );
         }).then(function(result) {
@@ -198,7 +200,7 @@ App = {
             console.log(err.message);
         });
     },
-    
+
     packItem: function (event) {
         event.preventDefault();
         var processId = parseInt($(event.target).data('id'));
@@ -220,7 +222,7 @@ App = {
         App.contracts.SupplyChain.deployed().then(function(instance) {
             const productPrice = web3.toWei(1, "ether");
             console.log('productPrice',productPrice);
-            return instance.sellItem(App.upc, App.productPrice, {from: App.metamaskAccountID});
+            return instance.sellItem(App.upc, productPrice, {from: App.metamaskAccountID});
         }).then(function(result) {
             $("#ftc-item").text(result);
             console.log('sellItem',result);
@@ -234,7 +236,7 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            const walletValue = web3.toWei(3, "ether");
+            const walletValue = web3.toWei(2, "ether");
             return instance.buyItem(App.upc, {from: App.metamaskAccountID, value: walletValue});
         }).then(function(result) {
             $("#ftc-item").text(result);
@@ -305,7 +307,7 @@ App = {
     fetchItemBufferTwo: function () {
     ///    event.preventDefault();
     ///    var processId = parseInt($(event.target).data('id'));
-                        
+
         App.contracts.SupplyChain.deployed().then(function(instance) {
           return instance.fetchItemBufferTwo.call(App.upc);
         }).then(function(result) {
@@ -334,7 +336,7 @@ App = {
         }).catch(function(err) {
           console.log(err.message);
         });
-        
+
     }
 };
 
