@@ -1,6 +1,6 @@
 // This script is designed to test the solidity smart contract - SuppyChain.sol -- and the various functions within
 // Declare a variable and assign the compiled smart contract artifact
-var SupplyChain = artifacts.require('SupplyChain')
+var SupplyChain = artifacts.require('Ownable')
 var toBN = web3.utils.toBN
 var getBalance = web3.eth.getBalance
 var getGasPrice = web3.eth.getGasPrice
@@ -277,6 +277,9 @@ contract('SupplyChain', function(accounts) {
             eventEmitted = true
         })
 
+        // Add retailer to contract
+        await supplyChain.addRetailer(retailerID)
+
         // Mark an item as Received by calling function receiveItem()
         await supplyChain.receiveItem(upc, {from: retailerID})
 
@@ -305,6 +308,9 @@ contract('SupplyChain', function(accounts) {
 
         // Declare and Initialize a variable for event
         let eventEmitted = false
+
+        // Add consumer to contract
+        await supplyChain.addConsumer(consumerID)
 
         // Watch the emitted event Purchased()
         supplyChain.contract.events.Purchased((err, res) => {

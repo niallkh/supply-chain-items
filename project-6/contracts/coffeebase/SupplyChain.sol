@@ -6,12 +6,8 @@ import "../coffeeaccesscontrol/RetailerRole.sol";
 import "../coffeeaccesscontrol/ConsumerRole.sol";
 
 // Define a contract 'Supplychain'
-contract SupplyChain is
-  FarmerRole, DistributorRole, RetailerRole, ConsumerRole
+contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole
 {
-
-  // Define 'owner'
-  address owner;
 
   // Define a variable called 'upc' for Universal Product Code (UPC)
   uint  upc;
@@ -72,12 +68,6 @@ contract SupplyChain is
   event Shipped(uint upc);
   event Received(uint upc);
   event Purchased(uint upc);
-
-  // Define a modifer that checks to see if msg.sender == owner of the contract
-  modifier onlyOwner() {
-    require(msg.sender == owner);
-    _;
-  }
 
   // Define a modifer that verifies the Caller
   modifier verifyCaller (address _address) {
@@ -157,16 +147,8 @@ contract SupplyChain is
   // and set 'sku' to 1
   // and set 'upc' to 1
   constructor() public payable {
-    owner = msg.sender;
     sku = 1;
     upc = 1;
-  }
-
-  // Define a function 'kill' if required
-  function kill() public {
-    if (msg.sender == owner) {
-      selfdestruct(msg.sender);
-    }
   }
 
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
@@ -293,7 +275,7 @@ contract SupplyChain is
     // Call modifier to check if upc has passed previous supply chain stage
     shipped(_upc)
     // Access Control List enforced by calling Smart Contract / DApp
-
+    onlyRetailer
   {
     // Update the appropriate fields - ownerID, retailerID, itemState
     items[_upc].ownerID = msg.sender;
@@ -309,7 +291,7 @@ contract SupplyChain is
     // Call modifier to check if upc has passed previous supply chain stage
     received(_upc)
     // Access Control List enforced by calling Smart Contract / DApp
-
+    onlyConsumer
   {
     // Update the appropriate fields - ownerID, consumerID, itemState
     items[_upc].ownerID = msg.sender;
@@ -322,14 +304,14 @@ contract SupplyChain is
   // Define a function 'fetchItemBufferOne' that fetches the data
   function fetchItemBufferOne(uint _upc) public view returns
   (
-  uint    itemSKU,
-  uint    itemUPC,
-  address ownerID,
-  address originFarmerID,
-  string memory originFarmName,
-  string memory originFarmInformation,
-  string memory originFarmLatitude,
-  string memory originFarmLongitude
+    uint    itemSKU,
+    uint    itemUPC,
+    address ownerID,
+    address originFarmerID,
+    string memory originFarmName,
+    string memory originFarmInformation,
+    string memory originFarmLatitude,
+    string memory originFarmLongitude
   )
   {
     // Assign values to the 8 parameters
@@ -358,15 +340,15 @@ contract SupplyChain is
   // Define a function 'fetchItemBufferTwo' that fetches the data
   function fetchItemBufferTwo(uint _upc) public view returns
   (
-  uint    itemSKU,
-  uint    itemUPC,
-  uint    productID,
-  string memory  productNotes,
-  uint    productPrice,
-  uint    itemState,
-  address distributorID,
-  address retailerID,
-  address consumerID
+    uint    itemSKU,
+    uint    itemUPC,
+    uint    productID,
+    string memory  productNotes,
+    uint    productPrice,
+    uint    itemState,
+    address distributorID,
+    address retailerID,
+    address consumerID
   )
   {
     // Assign values to the 9 parameters
