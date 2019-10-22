@@ -4,9 +4,11 @@ import "../coffeeaccesscontrol/FarmerRole.sol";
 import "../coffeeaccesscontrol/DistributorRole.sol";
 import "../coffeeaccesscontrol/RetailerRole.sol";
 import "../coffeeaccesscontrol/ConsumerRole.sol";
+import "../coffeecore/Ownable.sol";
 
 // Define a contract 'Supplychain'
-contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole
+contract SupplyChain is FarmerRole, DistributorRole, RetailerRole,
+ ConsumerRole, Ownable
 {
 
   // Define a variable called 'upc' for Universal Product Code (UPC)
@@ -151,6 +153,11 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole
     upc = 1;
   }
 
+  // Define a function 'kill' if required
+  function kill() public onlyOwner {
+    selfdestruct(msg.sender);
+  }
+
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
   function harvestItem(
     uint _upc,
@@ -196,6 +203,8 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole
   harvested(_upc)
   // Call modifier to verify caller of this function
   verifyCaller(items[_upc].ownerID)
+  // Caller must be farmer
+  onlyFarmer
   {
     // Update the appropriate fields
     items[_upc].itemState = State.Processed;
@@ -240,6 +249,8 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole
     paidEnough(items[_upc].productPrice)
     // Call modifer to send any excess ether back to buyer
     checkValue(_upc)
+    // Caller must be distributor
+    onlyDistributor
   {
 
     // Update the appropriate fields - ownerID, distributorID, itemState

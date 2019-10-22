@@ -1,6 +1,6 @@
 // This script is designed to test the solidity smart contract - SuppyChain.sol -- and the various functions within
 // Declare a variable and assign the compiled smart contract artifact
-var SupplyChain = artifacts.require('Ownable')
+var SupplyChain = artifacts.require('SupplyChain')
 var toBN = web3.utils.toBN
 var getBalance = web3.eth.getBalance
 var getGasPrice = web3.eth.getGasPrice
@@ -55,6 +55,9 @@ contract('SupplyChain', function(accounts) {
         supplyChain.contract.events.Harvested((err, res) => {
             eventEmitted = true
         })
+
+        // Add farmer in contract
+        await supplyChain.addFarmer(originFarmerID)
 
         // Mark an item as Harvested by calling function harvestItem()
         await supplyChain.harvestItem(upc, originFarmerID, originFarmName, originFarmInformation, originFarmLatitude, originFarmLongitude, productNotes, {from: originFarmerID})
@@ -187,6 +190,9 @@ contract('SupplyChain', function(accounts) {
             eventEmitted = true
         })
 
+        // Add distributor in contract
+        await supplyChain.addDistributor(distributorID)
+
         // Mark an item as Sold by calling function buyItem()
         const tx = await supplyChain.buyItem(upc, {
             from: distributorID,
@@ -195,7 +201,6 @@ contract('SupplyChain', function(accounts) {
         const gasUsed = toBN(tx.receipt.gasUsed)
         const txFee = gasUsed
             .mul(gasPrice)
-            .mul(toBN('10')) // FIXME
         const balanceFarmerAfter = await getBalance(originFarmerID)
         const balanceDistributorAfter = await getBalance(distributorID)
 
