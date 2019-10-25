@@ -1,7 +1,4 @@
 const HDWallet = require('truffle-hdwallet-provider');
-const keys = require('./env.json');
-const infuraKey = keys.apiKey;
-const mnemonic = keys.wallet;
 
 module.exports = {
   networks: {
@@ -17,10 +14,16 @@ module.exports = {
       defaultEtherBalance: 100000
     },
     rinkeby: {
-      provider: () => new HDWallet(
-        mnemonic,
-        `https://rinkeby.infura.io/v3/${infuraKey}`
-      ),
+      provider: () => {
+        const keys = require('./env.json');
+        const infuraKey = keys.apiKey;
+        const mnemonic = keys.wallet;
+
+        new HDWallet(
+          mnemonic,
+          `https://rinkeby.infura.io/v3/${infuraKey}`
+        )
+      },
       network_id: 4,
     },
   }

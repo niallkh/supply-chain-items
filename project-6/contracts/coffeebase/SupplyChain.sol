@@ -59,6 +59,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole,
     address distributorID;  // Metamask-Ethereum address of the Distributor
     address retailerID; // Metamask-Ethereum address of the Retailer
     address consumerID; // Metamask-Ethereum address of the Consumer
+    string imageAddress; // Ipfs address on image
   }
 
   // Define 8 events with the same 8 state values and accept 'upc' as input argument
@@ -166,7 +167,8 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole,
     string memory _originFarmInformation,
     string memory _originFarmLatitude,
     string memory _originFarmLongitude,
-    string memory _productNotes
+    string memory _productNotes,
+    string memory _imageAddress
   )
   public
   {
@@ -186,7 +188,8 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole,
       productPrice: 0,
       distributorID: address(0),
       retailerID: address(0),
-      consumerID: address(0)
+      consumerID: address(0),
+      imageAddress: _imageAddress
     });
 
     items[_upc] = item;
@@ -359,7 +362,8 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole,
     uint    itemState,
     address distributorID,
     address retailerID,
-    address consumerID
+    address consumerID,
+    string memory imageAddress
   )
   {
     // Assign values to the 9 parameters
@@ -372,6 +376,7 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole,
     distributorID = items[_upc].distributorID;
     retailerID = items[_upc].retailerID;
     consumerID = items[_upc].consumerID;
+    imageAddress = items[_upc].imageAddress;
 
     return
     (
@@ -383,7 +388,8 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole,
       itemState,
       distributorID,
       retailerID,
-      consumerID
+      consumerID,
+      imageAddress
     );
   }
 }

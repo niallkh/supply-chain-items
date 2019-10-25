@@ -23,6 +23,7 @@ contract('SupplyChain', function(accounts) {
     const retailerID = accounts[3]
     const consumerID = accounts[4]
     const emptyAddress = '0x00000000000000000000000000000000000000'
+    const imageAddress = 'image_address_on_ipfs'
 
     ///Available Accounts
     ///==================
@@ -60,7 +61,7 @@ contract('SupplyChain', function(accounts) {
         await supplyChain.addFarmer(originFarmerID)
 
         // Mark an item as Harvested by calling function harvestItem()
-        await supplyChain.harvestItem(upc, originFarmerID, originFarmName, originFarmInformation, originFarmLatitude, originFarmLongitude, productNotes, {from: originFarmerID})
+        await supplyChain.harvestItem(upc, originFarmerID, originFarmName, originFarmInformation, originFarmLatitude, originFarmLongitude, productNotes, imageAddress, {from: originFarmerID})
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
@@ -76,6 +77,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
         assert.equal(resultBufferOne[7], originFarmLongitude, 'Error: Missing or Invalid originFarmLongitude')
         assert.equal(resultBufferTwo[5], 0, 'Error: Invalid item State')
+        assert.equal(resultBufferTwo[9], imageAddress, 'Error: Missing or Invalid imageAddress')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
     })
 
@@ -108,6 +110,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
         assert.equal(resultBufferOne[7], originFarmLongitude, 'Error: Missing or Invalid originFarmLongitude')
         assert.equal(resultBufferTwo[5], 1, 'Error: Invalid item State')
+        assert.equal(resultBufferTwo[9], imageAddress, 'Error: Missing or Invalid imageAddress')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
     })
 
@@ -140,6 +143,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
         assert.equal(resultBufferOne[7], originFarmLongitude, 'Error: Missing or Invalid originFarmLongitude')
         assert.equal(resultBufferTwo[5], 2, 'Error: Invalid item State')
+        assert.equal(resultBufferTwo[9], imageAddress, 'Error: Missing or Invalid imageAddress')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
     })
 
@@ -172,6 +176,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
         assert.equal(resultBufferOne[7], originFarmLongitude, 'Error: Missing or Invalid originFarmLongitude')
         assert.equal(resultBufferTwo[5], 3, 'Error: Invalid item State')
+        assert.equal(resultBufferTwo[9], imageAddress, 'Error: Missing or Invalid imageAddress')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
     })
 
@@ -219,6 +224,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferOne[7], originFarmLongitude, 'Error: Missing or Invalid originFarmLongitude')
         assert.equal(resultBufferTwo[5], 4, 'Error: Invalid item State')
         assert.equal(resultBufferTwo[6], distributorID, 'Error: Missing or Invalid distributorID')
+        assert.equal(resultBufferTwo[9], imageAddress, 'Error: Missing or Invalid imageAddress')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
         assert.equal(
             toBN(balanceFarmerAfter)
@@ -267,6 +273,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferOne[7], originFarmLongitude, 'Error: Missing or Invalid originFarmLongitude')
         assert.equal(resultBufferTwo[5], 5, 'Error: Invalid item State')
         assert.equal(resultBufferTwo[6], distributorID, 'Error: Missing or Invalid distributorID')
+        assert.equal(resultBufferTwo[9], imageAddress, 'Error: Missing or Invalid imageAddress')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
     })
 
@@ -304,6 +311,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferTwo[5], 6, 'Error: Invalid item State')
         assert.equal(resultBufferTwo[6], distributorID, 'Error: Missing or Invalid distributorID')
         assert.equal(resultBufferTwo[7], retailerID, 'Error: Missing or Invalid retailerID')
+        assert.equal(resultBufferTwo[9], imageAddress, 'Error: Missing or Invalid imageAddress')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
     })
 
@@ -342,6 +350,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferTwo[6], distributorID, 'Error: Missing or Invalid distributorID')
         assert.equal(resultBufferTwo[7], retailerID, 'Error: Missing or Invalid retailerID')
         assert.equal(resultBufferTwo[8], consumerID, 'Error: Missing or Invalid consumerID')
+        assert.equal(resultBufferTwo[9], imageAddress, 'Error: Missing or Invalid imageAddress')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
     })
 
@@ -380,6 +389,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferTwo[6], distributorID, 'Error: Missing or Invalid distributorID')
         assert.equal(resultBufferTwo[7], retailerID, 'Error: Missing or Invalid retailerID')
         assert.equal(resultBufferTwo[8], consumerID, 'Error: Missing or Invalid consumerID')
+        assert.equal(resultBufferTwo[9], imageAddress, 'Error: Missing or Invalid imageAddress')
     })
 });
 
