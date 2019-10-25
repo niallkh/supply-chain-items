@@ -119,7 +119,7 @@ tx (rinkeby) = 0xc7130313f9c946d8185af0cf08b3717f4446fab0f782190686be17ea75e06bb
 
 ## Versions
 
-Program version numbers: 1
+Program version numbers: 2
 
 Truffle v5.0.37 (core: 5.0.37)
 
