@@ -77,12 +77,12 @@ App = {
             App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
         }
 
-        App.getMetaskAccountID();
+        App.getMetamaskAccountID();
 
         return App.initSupplyChain();
     },
 
-    getMetaskAccountID: function () {
+    getMetamaskAccountID: function () {
         web3 = new Web3(App.web3Provider);
 
         // Retrieving accounts
@@ -118,13 +118,23 @@ App = {
     },
 
     bindEvents: function() {
-        $(document).on('click', App.handleButtonClick);
+        $("#button-1").on('click', App.handleButtonClick);
+        $("#button-2").on('click', App.handleButtonClick);
+        $("#button-3").on('click', App.handleButtonClick);
+        $("#button-4").on('click', App.handleButtonClick);
+        $("#button-5").on('click', App.handleButtonClick);
+        $("#button-6").on('click', App.handleButtonClick);
+        $("#button-7").on('click', App.handleButtonClick);
+        $("#button-8").on('click', App.handleButtonClick);
+        $("#button-9").on('click', App.handleButtonClick);
+        $("#button-10").on('click', App.handleButtonClick);
+        $("#item-image-upload").on('click', App.uploadImage);
     },
 
     handleButtonClick: async function(event) {
         event.preventDefault();
 
-        App.getMetaskAccountID();
+        App.getMetamaskAccountID();
 
         App.readForm()
 
@@ -336,7 +346,30 @@ App = {
         }).catch(function(err) {
           console.log(err.message);
         });
+    },
 
+    uploadImage: async (event) => {
+        const file = $('#item-image')[0].files[0]
+        if (!file) {
+            console.error("Image is not chosen");
+            return
+        }
+
+        const formData = new FormData()
+        formData.append("blob", file)
+
+        const response = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
+            method: 'POST',
+            mode: 'cors',
+            body: formData,
+            headers: {
+                'Accept': '*/*'
+            }
+        })
+
+        const result = await response.json()
+        const hash = result.Hash
+        $("#item-image-hash").text(hash)
     }
 };
 
