@@ -112,19 +112,58 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## Contract
 
-address (rinkeby) = 0x5C3554E31DA34091ECcC85f2C616b8371BC687AD
+address (rinkeby) = 0xeBc3C7248E66984A90879053b6fa6397152eA7aA
 
-tx (rinkeby) = 0xc7130313f9c946d8185af0cf08b3717f4446fab0f782190686be17ea75e06bb5
+tx (rinkeby) = 0xf83b99174a376a2beef5739d0fc8319114de94330228801185f68e16c371df93
 
 
 ## Versions
 
 Program version numbers: 2
 
-Truffle v5.0.37 (core: 5.0.37)
+Truffle v5.0.42 (core: 5.0.42)
 
 Solidity v0.5.8 (solc-js)
 
-Node v10.16.3
+Node v10.17.0
 
 Web3.js v1.2.1
+
+
+## How to use
+
+### Add Role
+
+Before, assign addresses to each Role from contract owner.
+
+Enter address in `Role Address` input and click button `Farmer` to add Farmer
+Role to this address .
+
+The same for other Rolers: Distributor, Retailer, Consumer.
+
+### Supply chain
+
+1. Need specify item's information. Enter `UPC`, `Farm Name`,
+`Farm Information`, `Farm Latitude`, `Farm Longitude`, `Product Notes`.
+
+2. If you want to upload image of item to ipfs, you need select `Choose File`
+in section `Image Address` and wait until image address will be appeared.
+
+3. Choose farmer address in metamask and click button `Harvest`. Wait until
+event `Harvested` will arrive.
+
+4. The same for buttons `Process`, `Pack`.
+
+5. If you ready to sell item, you need specify `Product Price, ETH` and click
+button `For Sale`.
+
+6. Choose distributor address in metamask and click button `Buy`.
+
+7. To ship the item click button `Ship`
+
+8. Retailer must use own wallet and click button `Receive` when item will arrive.
+
+9. Consumer can purchase item, should click `Purchase`.
+
+10. To fetch information about item, open logs and click buttons `Fetch Data 1`
+ and `Fetch Data 2`

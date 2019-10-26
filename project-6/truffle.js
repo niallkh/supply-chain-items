@@ -19,7 +19,7 @@ module.exports = {
         const infuraKey = keys.apiKey;
         const mnemonic = keys.wallet;
 
-        new HDWallet(
+        return new HDWallet(
           mnemonic,
           `https://rinkeby.infura.io/v3/${infuraKey}`
         )

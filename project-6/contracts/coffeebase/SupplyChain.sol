@@ -171,6 +171,8 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole,
     string memory _imageAddress
   )
   public
+  // Caller must be farmer
+  onlyFarmer
   {
     // Add the new item as part of Harvest
     Item memory item = Item({
@@ -206,8 +208,6 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole,
   harvested(_upc)
   // Call modifier to verify caller of this function
   verifyCaller(items[_upc].ownerID)
-  // Caller must be farmer
-  onlyFarmer
   {
     // Update the appropriate fields
     items[_upc].itemState = State.Processed;
