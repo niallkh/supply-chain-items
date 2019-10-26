@@ -17,6 +17,17 @@
     </div>
 
     <div id="ftc-harvest">
+        <h2>Add Role</h2>
+        <div class="form-group">
+            Role Address:
+            <br>
+            <input class="input-field" id="role-address" name="role-address" value="0x963865f57804b38459dd4b2da2f760211a200438">
+            <br>
+            <button id="button-11" type="button" data-id="11">Farmer</button>
+            <button id="button-12" type="button" data-id="12">Distributor</button>
+            <button id="button-13" type="button" data-id="13">Retailer</button>
+            <button id="button-14" type="button" data-id="14">Consumer</button>
+        </div>
         <h2>Product Overview</h2>
         <div class="form-group">
             SKU
@@ -63,10 +74,19 @@
         <div class="form-group">
             Product Notes
             <br>
-            <input type="text" id="productNotes" name="productNotes" value="Best beans for Espresso" size="60"><br>
+            <input type="text" id="productNotes" name="productNotes" value="Best beans for Espresso" size="60">
+            <br>
+            Image Address:
+            <br>
+            <span id="item-image-hash"></span>
+            <input type="file"
+                   id="item-image" name="item-image"
+                   accept="image/*">
+            <br>
             Product Price, ETH
             <br>
-            <input type="number" id="productPrice" name="productPrice" value=1><br>
+            <input type="number" id="productPrice" name="productPrice" value=1>
+            <br>
             Distributor ID
             <br>
             <input type="text" id="distributorID" name="distributorID" value="0xf1b1bcd24dad92303dd9fe78be639f7bcf9c238d"
@@ -97,15 +117,6 @@
         </ul>
         <br>
         <hr>
-    </div>
-
-    <div>
-        <label for="item-image">Choose image of item:</label>
-        <input type="file"
-               id="item-image" name="item-image"
-               accept="image/png, image/jpeg">
-        <button id="item-image-upload">Upload</button>
-        <p id="item-image-hash"></p>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

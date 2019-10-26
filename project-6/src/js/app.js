@@ -16,6 +16,8 @@ App = {
     distributorID: "0x0000000000000000000000000000000000000000",
     retailerID: "0x0000000000000000000000000000000000000000",
     consumerID: "0x0000000000000000000000000000000000000000",
+    roleAddress: "0x0000000000000000000000000000000000000000",
+    addressImage: "",
 
     init: async function () {
         App.readForm();
@@ -37,6 +39,8 @@ App = {
         App.distributorID = $("#distributorID").val();
         App.retailerID = $("#retailerID").val();
         App.consumerID = $("#consumerID").val();
+        App.roleAddress = $("#role-address").val();
+        App.addressImage = $("#item-image-hash").val();
 
         console.log(
             App.sku,
@@ -51,7 +55,9 @@ App = {
             App.productPrice,
             App.distributorID,
             App.retailerID,
-            App.consumerID
+            App.consumerID,
+            App.roleAddress,
+            App.addressImage
         );
     },
 
@@ -128,7 +134,11 @@ App = {
         $("#button-8").on('click', App.handleButtonClick);
         $("#button-9").on('click', App.handleButtonClick);
         $("#button-10").on('click', App.handleButtonClick);
-        $("#item-image-upload").on('click', App.uploadImage);
+        $("#button-11").on('click', App.handleButtonClick);
+        $("#button-12").on('click', App.handleButtonClick);
+        $("#button-13").on('click', App.handleButtonClick);
+        $("#button-14").on('click', App.handleButtonClick);
+        $("#item-image").on('change', App.uploadImage);
     },
 
     handleButtonClick: async function(event) {
@@ -171,6 +181,18 @@ App = {
                 break;
             case 10:
                 return await App.fetchItemBufferTwo(event);
+                break;
+            case 11:
+                return await App.addFarmer(event);
+                break;
+            case 12:
+                return await App.addDistributor(event);
+                break;
+            case 13:
+                return await App.addRetailer(event);
+                break;
+            case 14:
+                return await App.addConsumer(event);
                 break;
             }
     },
@@ -298,6 +320,54 @@ App = {
         });
     },
 
+    addFarmer: async (event) => {
+        event.preventDefault()
+
+        try {
+            const supplyChain = await App.contracts.SupplyChain.deployed()
+            await supplyChain.addFarmer(App.roleAddress ,{from: App.metamaskAccountID})
+            console.log("Farmer added")
+        } catch(err) {
+            console.log(err)
+        }
+    },
+
+    addDistributor: async (event) => {
+        event.preventDefault()
+
+        try {
+            const supplyChain = await App.contracts.SupplyChain.deployed()
+            await supplyChain.addDistributor(App.roleAddress ,{from: App.metamaskAccountID})
+            console.log("Ditributor added")
+        } catch(err) {
+            console.log(err)
+        }
+    },
+
+    addRetailer: async (event) => {
+        event.preventDefault()
+
+        try {
+            const supplyChain = await App.contracts.SupplyChain.deployed()
+            await supplyChain.addRetailer(App.roleAddress ,{from: App.metamaskAccountID})
+            console.log("Retailer added")
+        } catch(err) {
+            console.log(err)
+        }
+    },
+
+    addConsumer: async (event) => {
+        event.preventDefault()
+
+        try {
+            const supplyChain = await App.contracts.SupplyChain.deployed()
+            await supplyChain.addConsumer(App.roleAddress ,{from: App.metamaskAccountID})
+            console.log("Consumer added")
+        } catch(err) {
+            console.log(err)
+        }
+    },
+
     fetchItemBufferOne: function () {
     ///   event.preventDefault();
     ///    var processId = parseInt($(event.target).data('id'));
@@ -356,20 +426,17 @@ App = {
         }
 
         const formData = new FormData()
-        formData.append("blob", file)
+        formData.append("item-image", file)
 
         const response = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
             method: 'POST',
             mode: 'cors',
             body: formData,
-            headers: {
-                'Accept': '*/*'
-            }
         })
 
         const result = await response.json()
-        const hash = result.Hash
-        $("#item-image-hash").text(hash)
+
+        $("#item-image-hash").text(result.Hash)
     }
 };
 
