@@ -134,12 +134,12 @@ Web3.js v1.2.1
 
 ### Add Role
 
-Before, assign addresses to each Role from contract owner.
+Before, assign addresses to each Role from contract owner address.
 
 Enter address in `Role Address` input and click button `Farmer` to add Farmer
 Role to this address .
 
-The same for other Rolers: Distributor, Retailer, Consumer.
+The same for other Rolers: `Distributor`, `Retailer`, `Consumer`.
 
 ### Supply chain
 
@@ -159,11 +159,11 @@ button `For Sale`.
 
 6. Choose distributor address in metamask and click button `Buy`.
 
-7. To ship the item click button `Ship`
+7. To ship the item click button `Ship`.
 
 8. Retailer must use own wallet and click button `Receive` when item will arrive.
 
 9. Consumer can purchase item, should click `Purchase`.
 
 10. To fetch information about item, open logs and click buttons `Fetch Data 1`
- and `Fetch Data 2`
+ and `Fetch Data 2`.
