@@ -1,6 +1,4 @@
-##### Udacity Project 3: Ethereum Dapp for Tracking Items through Supply Chain
-
-# Supply chain & data auditing
+# Udacity Project 3: Ethereum Dapp for Tracking Items through Supply Chain
 
 This repository contains an Ethereum DApp that demonstrates a Supply Chain flow between a Seller and Buyer. The user story is similar to any commonly used supply chain process. A Seller can add items to the inventory system stored in the blockchain. A Buyer can purchase such items from the inventory system. Additionally a Seller can mark an item as Shipped, and similarly a Buyer can mark an item as Received.
 
@@ -143,10 +141,14 @@ button `For Sale`.
 
 ### Diagrams
 
+##### Activity Diagram:
 ![activity diagram](project-6/activity-diagram.jpg)
 
+##### Data Model Diagram:
 ![data model diagram](project-6/data-model-diagram.jpg)
 
+##### Sequence Diagram:
 ![sequence diagram](project-6/sequence-diagram.jpg)
 
+##### State Diagram:
 ![state diagram](project-6/state-diagram.jpg)
